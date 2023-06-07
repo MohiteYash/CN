@@ -1,0 +1,35 @@
+import java.util.*;
+import java.net.*;
+import java.io.*;
+
+public class Server{
+	public static void main(String[] args)throws IOException {
+		ServerSocket ss=new ServerSocket(3555);
+		Socket clienSocket=ss.accept();
+        Scanner sc=new Scanner(System.in);
+		DataOutputStream dout=new DataOutputStream(clienSocket.getOutputStream());
+		DataInputStream din=new DataInputStream(clienSocket.getInputStream());
+
+		String rec;
+		String sen;
+
+		while(true){
+			rec = din.readUTF();
+			if(rec.equals("stop")){
+               dout.writeUTF("Termination process started");
+			   break;
+			}
+
+			System.out.println("Client :"+rec);
+			sen=sc.nextLine();
+			dout.writeUTF(sen);
+
+			
+		}
+        
+        sc.close();
+		dout.flush();
+		dout.close();
+		ss.close();
+	}
+}

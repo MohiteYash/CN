@@ -1,0 +1,54 @@
+import java.util.Scanner;
+
+public class Subnet{
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter the IP adress");
+        String ip=sc.nextLine();
+        String classcheck=ip.substring(0, 3);
+        int cc=Integer.parseInt(classcheck);
+        String mask=" ";
+
+        if (cc<128){
+            System.out.println("The class A ip adress");
+            mask="255.0.0.0";
+            String first=classcheck.concat(".0.0.0");
+            String last=classcheck.concat(".255.255.255");
+            System.out.println("First:-"+first);
+            System.out.println("last;-"+last);
+        }
+        else if (cc>=128&&cc<192){
+            System.out.println("The class B address");
+            mask="255.255.0.0";
+            String[] parts=ip.split("\\.");
+            String first=parts[0].concat(".").concat(parts[1]).concat(".0.0");
+            String last=parts[0].concat(".").concat(parts[1]).concat(".255.255");
+            System.out.println("First:-"+first);
+            System.out.println("last:-"+last);
+
+        }
+        else if(cc>=192&&cc<224){
+            System.out.println("The class C ip address");
+            mask="255.255.255.0";
+            String[] parts=ip.split("\\.");
+            String first=parts[0].concat(".").concat(parts[1]).concat(".").concat(parts[2]).concat(".0");
+            String last=parts[0].concat(".").concat(parts[1]).concat(".").concat(parts[2]).concat(".255");
+            System.out.println("First:-"+first);
+            System.out.println("Last:- "+last);
+        }
+        else if (cc>=224&&cc<240){
+            System.out.println("The class D ip address");
+            mask="255.0.0.0";
+        }
+        else if (cc>=240&&cc<255){
+            System.out.println("The class E ip address");
+            mask="255.0.0.0";
+        }
+
+
+
+
+
+
+    }
+}
