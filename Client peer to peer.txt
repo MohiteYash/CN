@@ -1,0 +1,43 @@
+import java.util.*;
+import java.net.*;
+import java.io.*;
+
+
+public class Client{
+	public static void main(String[] args) {
+		try{
+		Socket server =new Socket("Localhost",3555);
+		DataOutputStream dout=new DataOutputStream(server.getOutputStream());
+		DataInputStream din=new DataInputStream(server.getInputStream());
+        Scanner sc=new Scanner( System.in);
+
+        String rec;
+		String sen;
+
+		while(true){
+			System.out.println("Enter the message you want to give to server");
+          sen=sc.nextLine();
+		  if(sen.equals("stop")){
+			dout.writeUTF(sen);
+			System.out.println(din.readUTF());
+			break;
+		  }
+		  dout.writeUTF(sen);
+		  rec=din.readUTF();
+		  System.out.println("Server :"+rec);
+
+		}
+
+		server.close();
+		dout.close();
+		din.close();
+		sc.close();
+		
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+
+		
+	}
+}
